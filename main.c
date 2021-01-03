@@ -7,6 +7,32 @@
 #include "number.h"
 
 
+void fracTest(struct Fraction* f, int num, int den, int imag)
+{
+    initFrac(f, num, den, imag);
+    printf("OR: Fraction = ");
+    printFraction(f);
+    printf("\n");
+    reduce(f);
+    printf("RE: Fraction = ");
+    printFraction(f);
+    printf("\n");
+    printf("\n");
+}
+
+void compTest(struct ComplexNumber* c, struct Fraction* f1, struct Fraction* f2)
+{
+    initComp(c, f1, f2);
+    printf("OR: ");
+    printComp(c);
+    printf("\n");
+    reduce(&(c->real));
+    reduce(&(c->imag));
+    printf("RE: ");
+    printComp(c);
+    printf("\n\n");
+}
+
 // no arguments being used - use this if they will be used in the future (int argc, char* argv[])
 int main()
 {
@@ -73,6 +99,88 @@ int main()
     freeMatMemory(&matA);
     freeMatMemory(&matB);
     freeMatMemory(&matProd);
+    
+    printf("\n");
+    
+    // fraction stuff
+    struct Fraction f;
+    
+    // PLAIN REDUCE
+    
+    // 5/10 -> 1/2
+    fracTest(&f, 5, 10, 0);
+    
+    // -5/10 -> -1/2
+    fracTest(&f, -5, 10, 0);
+    
+    // 5/-10 -> -1/2
+    fracTest(&f, 5, -10, 0);
+    
+    // -5/-10 -> 1/2
+    fracTest(&f, -5, -10, 0);
+    
+    // IMAGINARIES
+    
+    // 5i/10 -> i/2
+    fracTest(&f, 5, 10, 1);
+    
+    // -5i/10 -> -i/2
+    fracTest(&f, -5, 10, 1);
+    
+    // 5i/-10 -> -i/2
+    fracTest(&f, 5, -10, 1);
+    
+    // -5i/-10 -> i/2
+    fracTest(&f, -5, -10, 1);
+    
+    // DIFFERENT FRACTIONS
+    
+    // 4i/10 -> 2i/5
+    fracTest(&f, 4, 10, 1);
+    
+    // 4i/2 -> 2i
+    fracTest(&f, 4, 2, 1);
+    
+    // 4/2 -> 2
+    fracTest(&f, 4, 2, 0);
+    
+    // -4i/2 -> -2i
+    fracTest(&f, -4, 2, 1);
+    
+    // 4i/-2 -> -2i
+    fracTest(&f, 4, -2, 1);
+    
+    // -4i/-2 -> 2i
+    fracTest(&f, -4, -2, 1);
+    
+    printf("COMPLEX NUMBER TESTING\n\n");
+    
+    struct ComplexNumber c;
+    
+    struct Fraction f1;
+    struct Fraction f2;
+    
+    initFrac(&f1, 4, 2, 0);
+    initFrac(&f2, 4, 2, 1);
+    compTest(&c, &f1, &f2);
+    
+    f1.num.value = -4;
+    f1.den.value = 2;
+    f2.num.value = 5;
+    f2.den.value = 1;
+    compTest(&c, &f1, &f2);
+    
+    f1.num.value = 8;
+    f1.den.value = 6;
+    f2.num.value = 6;
+    f2.den.value = 8;
+    compTest(&c, &f1, &f2);
+    
+    f1.num.value = 0;
+    f1.den.value = 0;
+    f2.num.value = 0;
+    f2.den.value = 0;
+    compTest(&c, &f1, &f2);
     
     return EXIT_SUCCESS;
 }
