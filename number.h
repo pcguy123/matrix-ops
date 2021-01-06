@@ -16,6 +16,7 @@ struct Fraction
     struct Number num;
     struct Number den;
     int fracChars;
+    int ind;
 };
 
 struct ComplexNumber
@@ -38,6 +39,7 @@ void initComp(struct ComplexNumber* c, struct Fraction* r, struct Fraction* i);
 void setReal(struct ComplexNumber* c, struct Fraction* f);
 void setImag(struct ComplexNumber* c, struct Fraction* f);
 // functions for printing fractions and complex numbers
+void printNum(struct Number* n);
 void printFraction(struct Fraction* f);
 void printComp(struct ComplexNumber* c);
 // returns the number of characters in the string representation of integers, Numbers,
