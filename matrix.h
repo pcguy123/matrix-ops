@@ -38,4 +38,3 @@ int** dot(struct Matrix* mat1, struct Matrix* mat2);
 void printDotResult(struct Matrix* mat1, struct Matrix* mat2, struct Matrix* matProd);
 
 #endif
-
